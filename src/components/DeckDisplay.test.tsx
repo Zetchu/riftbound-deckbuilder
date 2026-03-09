@@ -4,7 +4,7 @@ import DeckDisplay from './DeckDisplay';
 import type { DeckItem } from '../types';
 
 describe('DeckDisplay', () => {
-  it('renders with placeholder text when deck is empty', () => {
+  it('renders with placeholder text when deck is emptyy', () => {
     const deck: DeckItem[] = [];
     render(<DeckDisplay deck={deck} onRemoveCard={() => {}} />);
     expect(
