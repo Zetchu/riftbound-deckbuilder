@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useMemo } from 'react';
 import { Typography, Grid, Alert, Box, Paper } from '@mui/material';
 import CardList from '../components/CardList';
 import DeckDisplay from '../components/DeckDisplay';
@@ -7,13 +7,9 @@ import { checkDeckLimits } from '../utils/deckRules';
 import type { Card, DeckItem } from '../types';
 
 export default function DeckBuilderPage() {
-  const [cards, setCards] = useState<Card[]>([]);
+  const [cards] = useState<Card[]>(RIFTBOUND_CARDS);
   const [deck, setDeck] = useState<DeckItem[]>([]);
   const [errorMessage, setErrorMessage] = useState<string>('');
-
-  useEffect(() => {
-    setCards(RIFTBOUND_CARDS);
-  }, []);
 
   const totalCards = useMemo(() => {
     return deck.reduce((sum, item) => sum + item.count, 0);

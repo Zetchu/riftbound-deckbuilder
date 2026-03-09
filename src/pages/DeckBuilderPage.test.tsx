@@ -1,8 +1,7 @@
-import { render, screen, fireEvent } from '@testing-library/react';
-import { describe, it, expect, vi } from 'vitest';
+import { render, screen } from '@testing-library/react';
+import { describe, it, expect } from 'vitest';
 import DeckBuilderPage from './DeckBuilderPage';
 import userEvent from '@testing-library/user-event';
-import { BrowserRouter } from 'react-router-dom';
 
 describe('DeckBuilderPage', () => {
   it('renders correctly and allows user to add and remove cards', async () => {
@@ -15,7 +14,6 @@ describe('DeckBuilderPage', () => {
 
     // Find a card in the list
     const addButton = screen.getAllByText('Add')[0];
-    const cardName = "Teemo's Mushroom"; // Assuming this is the first card or present
 
     // Add card
     await user.click(addButton);
