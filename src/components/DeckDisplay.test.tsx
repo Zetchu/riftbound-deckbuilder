@@ -1,10 +1,11 @@
 import { render, screen } from '@testing-library/react';
 import { describe, it, expect } from 'vitest';
 import DeckDisplay from './DeckDisplay';
+import type { DeckItem } from '../types';
 
 describe('DeckDisplay', () => {
   it('renders with placeholder text when deck is empty', () => {
-    const deck: any[] = [];
+    const deck: DeckItem[] = [];
     render(<DeckDisplay deck={deck} onRemoveCard={() => {}} />);
     expect(
       screen.getByText(/Your deck is looking a little empty/)
