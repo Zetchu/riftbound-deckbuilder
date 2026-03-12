@@ -83,6 +83,7 @@ export function DeckProvider({
   );
 }
 
+// eslint-disable-next-line react-refresh/only-export-components
 export function useDeck() {
   const context = useContext(DeckContext);
   if (!context) {
@@ -91,6 +92,7 @@ export function useDeck() {
   return { ...context.state, error: context.error };
 }
 
+// eslint-disable-next-line react-refresh/only-export-components
 export function useDeckActions() {
   const context = useContext(DeckContext);
   if (!context) {

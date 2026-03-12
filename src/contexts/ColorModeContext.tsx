@@ -15,6 +15,7 @@ const ColorModeContext = createContext<ColorModeContextType>({
 
 import { getTheme } from '../theme/theme';
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const useColorMode = () => useContext(ColorModeContext);
 
 export function ColorModeProvider({ children }: { children: ReactNode }) {
