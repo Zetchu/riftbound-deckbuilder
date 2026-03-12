@@ -1,7 +1,12 @@
 import { render, screen } from '@testing-library/react';
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, vi } from 'vitest';
 import DeckBuilderPage from './DeckBuilderPage';
 import userEvent from '@testing-library/user-event';
+import { RIFTBOUND_CARDS } from '../data/mockCards';
+
+vi.mock('../api/cards', () => ({
+  useCards: () => [RIFTBOUND_CARDS, { refresh: vi.fn() }],
+}));
 
 describe('DeckBuilderPage', () => {
   it('renders correctly and allows user to add and remove cards', async () => {

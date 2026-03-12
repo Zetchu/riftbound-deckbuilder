@@ -1,15 +1,18 @@
-import { useState, useMemo } from 'react';
-import { Typography, Grid, Alert, Box, Paper } from '@mui/material';
+import { Suspense, useState, useMemo } from 'react';
+import { ErrorBoundary } from 'react-error-boundary';
+import { Paper, Typography, Grid, Box, Alert, Button } from '@mui/material';
 import CardList from '../components/CardList';
 import DeckDisplay from '../components/DeckDisplay';
-import { RIFTBOUND_CARDS } from '../data/mockCards';
+import { useCards } from '../api/cards';
 import { checkDeckLimits } from '../utils/deckRules';
 import type { Card, DeckItem } from '../types';
 
-export default function DeckBuilderPage() {
-  const [cards] = useState<Card[]>(RIFTBOUND_CARDS);
+function DeckBuilderContent() {
+  const [cards, { refresh }] = useCards();
   const [deck, setDeck] = useState<DeckItem[]>([]);
   const [errorMessage, setErrorMessage] = useState<string>('');
+
+  const displayedCards = cards || [];
 
   const totalCards = useMemo(() => {
     return deck.reduce((sum, item) => sum + item.count, 0);
@@ -53,9 +56,16 @@ export default function DeckBuilderPage() {
 
   return (
     <>
-      <Box sx={{ mb: 4 }}>
+      <Box sx={{ mb: 4, display: 'flex', gap: 2, alignItems: 'center' }}>
+        <Button variant="contained" onClick={refresh}>
+          Update Card List
+        </Button>
         {errorMessage && (
-          <Alert severity="error" onClose={() => setErrorMessage('')}>
+          <Alert
+            severity="error"
+            onClose={() => setErrorMessage('')}
+            sx={{ flexGrow: 1 }}
+          >
             {errorMessage}
           </Alert>
         )}
@@ -83,12 +93,22 @@ export default function DeckBuilderPage() {
 
       <Grid container spacing={4}>
         <Grid size={{ xs: 12, md: 6 }}>
-          <CardList cards={cards} onAddCard={handleAddCard} />
+          <CardList cards={displayedCards} onAddCard={handleAddCard} />
         </Grid>
         <Grid size={{ xs: 12, md: 6 }}>
           <DeckDisplay deck={deck} onRemoveCard={handleRemoveCard} />
         </Grid>
       </Grid>
     </>
+  );
+}
+
+export default function DeckBuilderPage() {
+  return (
+    <ErrorBoundary fallback={<div>Failed to load Riftbound cards.</div>}>
+      <Suspense fallback={<div>Loading card database...</div>}>
+        <DeckBuilderContent />
+      </Suspense>
+    </ErrorBoundary>
   );
 }
