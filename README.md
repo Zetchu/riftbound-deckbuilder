@@ -33,6 +33,10 @@ This project follows a **Feature-Based Architecture** to ensure separation of co
 - **ESLint & Prettier**: Code quality and formatting.
 - **Vitest**: Unit testing framework.
 
+## Known Issues
+
+- **Production API:** The card database API (https://api.riftcodex.com) works in local development (via proxy) but is currently blocked in production environments due to CORS restrictions, as it is a fan-made API without official support. In production builds, the app may fail to load cards.
+
 ## Getting Started
 
 1.  **Install Dependencies:**
