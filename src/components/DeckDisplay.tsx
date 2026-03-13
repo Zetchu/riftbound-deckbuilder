@@ -46,7 +46,9 @@ export default function DeckDisplay() {
             >
               <ListItemText
                 primary={`${item.name} (x${item.count})`}
-                secondary={`${item.type} • Cost: ${item.cost}`}
+                secondary={`${item.classification?.type || item.type} • Cost: ${
+                  item.attributes?.energy ?? item.cost ?? 0
+                }`}
               />
             </ListItem>
           ))}

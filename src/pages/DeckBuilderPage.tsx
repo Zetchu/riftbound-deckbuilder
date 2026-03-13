@@ -1,6 +1,7 @@
 import { Suspense, useMemo } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
-import { Paper, Typography, Grid, Box, Alert, Button } from '@mui/material';
+import { Paper, Typography, Box, Alert, Button } from '@mui/material';
+import Grid from '@mui/material/Grid';
 
 import DeckDisplay from '../components/DeckDisplay';
 import { useCards } from '../api/cards';
