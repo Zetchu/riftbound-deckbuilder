@@ -1,12 +1,17 @@
 import useAsync from '../hooks/useAsync';
 import type { Card } from '../types';
 
-const API_BASE_URL = import.meta.env.DEV
-  ? '/api'
-  : 'https://corsproxy.io/?https://api.riftcodex.com';
+const getApiUrl = () => {
+  if (import.meta.env.DEV) {
+    return '/api/cards';
+  }
+  return `https://api.allorigins.win/raw?url=${encodeURIComponent(
+    'https://api.riftcodex.com/cards'
+  )}`;
+};
 
 export async function fetchAllCards(): Promise<Card[]> {
-  const response = await fetch(`${API_BASE_URL}/cards`);
+  const response = await fetch(getApiUrl());
   if (!response.ok) throw new Error('Could not fetch cards');
   const json = await response.json();
 
